@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AuthWrapper from '../components/auth/AuthWrapper';
 import useAuthStore from '../store/authStore';
 import useCartStore from '../store/cartStore';
 
-const AuthPage = () => {
+const AuthPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, redirectAfterLogin } = useAuthStore();
   const { addItem } = useCartStore();
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Check for redirect param in URL or use the stored redirect path
     const requestedPath = searchParams.get('redirect');
     if (requestedPath && !redirectAfterLogin) {
@@ -45,10 +45,14 @@ const AuthPage = () => {
     return null; // Don't render anything if already authenticated
   }
 
+  return <AuthWrapper />;
+};
+
+const AuthPage = () => {
   return (
-    <div>
-      <AuthWrapper />
-    </div>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <AuthPageContent />
+    </React.Suspense>
   );
 };
 
