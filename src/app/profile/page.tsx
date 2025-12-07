@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import ProtectedRoute from '../../components/ProtectedRoute';
-import useAuthStore from '../../store/authStore';
+import ProtectedRoute from '../components/ProtectedRoute';
+import useAuthStore from '../store/authStore';
 
 const ProfilePage = () => {
   const { user } = useAuthStore();
